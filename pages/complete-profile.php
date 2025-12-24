@@ -14,21 +14,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = cleanInput($_POST['name']);
     $tel = cleanInput($_POST['tel']);
 
+    // Handle Company
     if ($role == 'company') {
         $bio = cleanInput($_POST['bio']);
         $address = cleanInput($_POST['address']);
-
+        $location = cleanInput($_POST['location']);
         $logo = uploadFile($_FILES['logo']);
 
-        $stmt = $pdo->prepare("INSERT INTO companies (user_id, name, bio, address, tel, logo_path) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$user_id, $name, $bio, $address, $tel, $logo]);
+        $stmt = $pdo->prepare("INSERT INTO companies (user_id, name, bio, address, location, tel, logo_path) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$user_id, $name, $bio, $address, $location, $tel, $logo]);
     }
     else {
+        $balance = isset($_POST['balance']) ? cleanInput($_POST['balance']) : 0;
+
         $photo = uploadFile($_FILES['photo']);
         $passport = uploadFile($_FILES['passport']);
 
-        $stmt = $pdo->prepare("INSERT INTO passengers (user_id, name, tel, photo_path, passport_img_path) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$user_id, $name, $tel, $photo, $passport]);
+        $stmt = $pdo->prepare("INSERT INTO passengers (user_id, name, tel, photo_path, passport_img_path, account_balance) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$user_id, $name, $tel, $photo, $passport, $balance]);
     }
 
     $_SESSION['user_id'] = $user_id;
@@ -54,6 +57,7 @@ include '../includes/header.php';
             <label>Name:</label>
             <input type="text" name="name" required>
         </div>
+
         <div class="form-group">
             <label>Telephone:</label>
             <input type="text" name="tel" required>
@@ -64,15 +68,27 @@ include '../includes/header.php';
                 <label>Bio:</label>
                 <textarea name="bio"></textarea>
             </div>
+
             <div class="form-group">
                 <label>Address:</label>
                 <input type="text" name="address">
             </div>
+
+            <div class="form-group">
+                <label>Location (Optional):</label>
+                <input type="text" name="location" placeholder="e.g. Building 5, Downtown">
+            </div>
+
             <div class="form-group">
                 <label>Company Logo:</label>
                 <input type="file" name="logo" required>
             </div>
         <?php else: ?>
+            <div class="form-group">
+                <label>Initial Account Balance ($):</label>
+                <input type="number" name="balance" step="0.01" min="0" placeholder="0.00" required>
+            </div>
+
             <div class="form-group">
                 <label>Personal Photo:</label>
                 <input type="file" name="photo" required>

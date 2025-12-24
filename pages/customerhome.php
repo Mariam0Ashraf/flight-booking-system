@@ -58,8 +58,8 @@ include '../includes/header.php';
 
             <div style="margin-left:auto;">
                 <a href="passenger-profile.php" class="btn">Profile</a>
-                <a href="search-flights.php" class="btn" style="background:#007bff; color:white;">Search for Flight</a>
-                <a href="logout.php" class="btn" style="background:red; color:white;">Logout</a>
+                <a href="search-flights.php" class="btn" >Search for Flight</a>
+                <a href="logout.php" class="btn" >Logout</a>
             </div>
         </div>
 

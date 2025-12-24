@@ -37,8 +37,8 @@ include '../includes/header.php';
         </div>
 
         <div class="actions">
-            <a href="profile.php" class="btn">Edit Profile</a>
-            <a href="company-inbox.php" class="btn" style="background-color:#007bff; color:white;">Messages</a>
+            <a href="profile.php" class="btn">Profile</a>
+            <a href="company-inbox.php" class="btn"  color:white;">Messages</a>
             <a href="logout.php" class="btn btn-red">Logout</a>
         </div>
     </div>
