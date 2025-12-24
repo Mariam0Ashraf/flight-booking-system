@@ -2,7 +2,7 @@
 $host = 'localhost';
 $db   = 'flight_booking_db';
 $user = 'root';
-$pass = '#Magcds006052003';
+$pass = '';
 $charset = 'utf8mb4';
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
